@@ -9,6 +9,7 @@ export class HtmlTamplate{
     }
 
     htmlGenerateCertificado(){
+        console.log(`${decodeURIComponent(String(this.alunoinfo.inicio))} á ${decodeURIComponent(String(this.alunoinfo.fim)) }`)
         return `<!DOCTYPE html>
         <html lang="en">
         
@@ -63,7 +64,7 @@ export class HtmlTamplate{
                         <span>
                             Portador do RG ${this.alunoinfo.rg} , contrado pela empresa _____________________,
                             concluiu o curso de APRENDIZ DE PRODUÇÃO do Programa Jovem Aprendiz no Instituto
-                            Técnico Educacional Mirian Menchini no período de ${this.alunoinfo.inicio} á ${this.alunoinfo.fim}
+                            Técnico Educacional Mirian Menchini no período de ${decodeURIComponent(String(this.alunoinfo.inicio))} á ${decodeURIComponent(String(this.alunoinfo.fim)) }
                         </span>
                     </div>
                 </div>
