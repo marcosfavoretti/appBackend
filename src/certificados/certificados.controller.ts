@@ -13,10 +13,10 @@ export class CertificadosController {
   constructor(private readonly certificadosService: CertificadosService) {
   }
 
-    @Get("generate/:rg/:inicio/:fim")
+    @Get("generate/:rg/:empresa/:inicio/:fim")
     async sendCertificado(@Param() param : AlunoInfo, @Res({ passthrough: true }) res: Response): Promise<StreamableFile>{
         
-      let path =await this.certificadosService.generate(param)//passo minhas infos para criar meu arquivo
+      let path = await this.certificadosService.generate(param)//passo minhas infos para criar meu arquivo
       const file = createReadStream((path))
       res.set({
         'Content-Type': 'application/pdf',

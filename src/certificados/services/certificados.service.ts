@@ -9,5 +9,6 @@ export class CertificadosService {
        let path = await this.certificado_build.generateCertificado(alunoinfo)
         return path
     }
+ 
 
 }

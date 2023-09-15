@@ -1,7 +1,9 @@
 const msal = require('@azure/msal-node');
 const axios = require('axios');
-
+const fs = require('fs')
 // MSAL configuration
+fs.existsSync
+fs.
 const config = {
     auth: {
         clientId: '51f81489-12ee-4a9e-aaae-a2591f45987d',

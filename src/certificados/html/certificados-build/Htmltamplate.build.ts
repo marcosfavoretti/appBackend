@@ -62,7 +62,7 @@ export class HtmlTamplate{
                     </div>
                     <div style="height: 100%; justify-content:  center ; align-items: center; display: flex;">
                         <span>
-                            Portador do RG ${this.alunoinfo.rg} , contrado pela empresa _____________________,
+                            Portador do RG ${decodeURIComponent(String(this.alunoinfo.rg))} , contrado pela empresa ${decodeURIComponent(String(this.alunoinfo.empresa))},
                             concluiu o curso de APRENDIZ DE PRODUÇÃO do Programa Jovem Aprendiz no Instituto
                             Técnico Educacional Mirian Menchini no período de ${decodeURIComponent(String(this.alunoinfo.inicio))} á ${decodeURIComponent(String(this.alunoinfo.fim)) }
                         </span>
