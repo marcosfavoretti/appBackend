@@ -22,8 +22,7 @@ const tokenRequest = {
 };
 
 pca.acquireTokenByUsernamePassword({
-  username: '210482@facens.br',
-  password: 'Ju150203**',
+
   scopes: scopes,
 }).then((response) => {
   console.log('Token adquirido:', response);
