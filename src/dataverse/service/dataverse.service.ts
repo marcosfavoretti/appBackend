@@ -25,8 +25,8 @@ export class DataverseService {
        return res
     }
 
-    async insertData(query: DataverseQueries){
-      let https_config = await query.getData();
+    async insertData(query: DataverseQueries,body: any){
+      let https_config = await query.insertData(body);
        
       let res = axios.post(https_config.url,https_config.data,https_config.header).then(
        (res)=>{
@@ -35,10 +35,23 @@ export class DataverseService {
       ).catch(
        (err)=>{
          console.log(err)
-         throw new HttpException("nao foi possivel consultar os dados", 500)
+         throw new HttpException("nao foi inserir os dados", 500)
        }
       )
       return res
     }
+    
+    /*
+    {
+      "cr0bb_presenca": "false",
+      "cr0bb_datapresenca": "20/01/2023",
+      "cr0bb_participacao": "0",
+      "cr0bb_relacionamentointerpessoal": "0",
+      "cr0bb_cumprimentodemetas": "0",
+      "cr0bb_habilidadestecnicas": "0",
+      "cr0bb_idaluno":"1"
+      }
+    */
+
 
 }

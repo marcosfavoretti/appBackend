@@ -9,7 +9,7 @@ import path from 'path';
 export class CertificadosBuildService {
     private readonly options = { format: 'A4',landscape: true,  localUrlAccess: true};
       
-    private readonly out_dir = "C:/Users/Marcos/Documents/backend_UPX/itemm-back/src/certificados/Certificados_repository"
+    private readonly out_dir = `${__dirname}\\Certificados_repository`
 
     async generateCertificado(alunoinfo: AlunoInfo): Promise<string>{
         console.log(alunoinfo)
@@ -34,6 +34,7 @@ export class CertificadosBuildService {
 
     private async frsFile(path: string, number?: number){
         let idx = number ?? 0 //se nao tem o number ele é zero
+        await this.createRepository()
         if(await fs.existsSync(path)){//se tiver o arquivo já ele tem q ir somando
             console.log('ja temos pdf igual')
             let new_path = path.slice(0, path.indexOf('.pdf'))+`(${idx++})`+'.pdf'
@@ -42,6 +43,20 @@ export class CertificadosBuildService {
         }
         console.log('--: foi'+path)
         return path
+    }
+    private async createRepository(){ //funçao de criaçao de o repositorio caso nao tenha
+        if(await fs.existsSync(this.out_dir)){
+            return
+        }
+        console.log('diretorio criado', this.out_dir)
+        try{
+            await fs.promises.mkdir(this.out_dir);
+
+        }
+        catch(err){
+            console.log(err)
+        }
+        return
     }
 
 

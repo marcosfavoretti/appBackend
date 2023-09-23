@@ -9,7 +9,7 @@ export class AvaliacaoDataverse extends DataverseBaseClass implements DataverseQ
         return new RequestConfig("https://org5cbe6214.api.crm2.dynamics.com/api/data/v9.2/cr0bb_avaliacaos", http_header)
     }
    
-    async insertData(data: any) {
+    async insertData(data: any): Promise<RequestConfig> {
         let http_header = await this.getHeader()
         return new RequestConfig("https://org5cbe6214.api.crm2.dynamics.com/api/data/v9.2/cr0bb_avaliacaos", http_header, data)
     }
