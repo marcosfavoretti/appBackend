@@ -1,20 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { MicrosoftTokenService } from './microsoft-token/microsoft-token.service';
 import axios from 'axios';
 import { MicrosoftToken } from 'src/MicrosoftToken/Microsoft.token';
 import { HttpException } from '@nestjs/common';
 import { DataverseQueries } from '../interfaces/Dataverse.Queries.Interface';
+import { UpdateDto } from '../dataverse.dto/update.dto';
+import { type } from 'os';
 
 @Injectable()
 export class DataverseService {
     constructor(){}
 
-    async getData(query: DataverseQueries){
+    async getData(query: DataverseQueries, filter?: string){
        let https_config = await query.getData();
        
        let res = axios.get(https_config.url, https_config.header).then(
-        (res)=>{
-          return res.data
+        (res) => {
+          if (filter === undefined) return res.data;
+          else {
+            let filteredArray = res.data.value.filter((filt) => filt.cr0bb_idaluno === filter);
+            console.log(filteredArray, typeof filteredArray);
+            return filteredArray;
+          }
         }
        ).catch(
         (err)=>{
@@ -40,6 +46,22 @@ export class DataverseService {
       )
       return res
     }
+
+
+    async updateData(query: DataverseQueries, body: UpdateDto){
+      let https_config = await query.updateData(body.data, body.id, body.field);
+      console.log(https_config.url)
+      let res = axios.put((https_config.url) , {value: https_config.data}, https_config.header).then(
+       (res)=>{
+         return res.data
+       }
+      ).catch(
+       (err)=>{
+         console.log(err)
+         throw new HttpException(err, 500)
+       }
+      )
+      return res    }
     
     /*
     {

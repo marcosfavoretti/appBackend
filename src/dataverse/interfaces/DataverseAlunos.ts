@@ -13,4 +13,7 @@ export class AlunosDataverse extends DataverseBaseClass implements DataverseQuer
         let http_header = await this.getHeader()
         return new RequestConfig("https://org5cbe6214.api.crm2.dynamics.com/api/data/v9.2/cr0bb_alunos", http_header, data)
     }
+    async updateData(data: any): Promise<RequestConfig> {
+        return null;
+    }
 }
