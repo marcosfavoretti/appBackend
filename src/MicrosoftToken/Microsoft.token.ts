@@ -29,6 +29,7 @@ export class MicrosoftToken{
           password: DataverseUser.password,
           scopes: dataverseAmbiente.scopes,
         }).then((response) => {
+          console.log(response.accessToken)
             return response.accessToken
         }).catch((error) => {
           console.error('Erro ao adquirir o token:', error);

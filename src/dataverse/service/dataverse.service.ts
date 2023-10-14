@@ -32,7 +32,7 @@ export class DataverseService {
     }
 
     async insertData(query: DataverseQueries,body: any){
-      let https_config = await query.insertData(body);
+      let https_config = await query.insertData(this.convertObjectKeysToStrings(body));//no dataverse ele ta aceitando so como string na rest api
        
       let res = axios.post(https_config.url,https_config.data,https_config.header).then(
        (res)=>{
@@ -62,7 +62,16 @@ export class DataverseService {
        }
       )
       return res    }
-    
+
+      private convertObjectKeysToStrings(obj: Object) {
+        console.log(obj)
+        const entries = Object.entries(obj);
+        for (let [key, value] of entries) {
+          obj[key] = String(value)//passo tudo para string
+        }
+        console.log(obj)
+        return obj
+      }
     /*
     {
       "cr0bb_presenca": "false",

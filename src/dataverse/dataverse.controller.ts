@@ -3,6 +3,7 @@ import { DataverseService } from './service/dataverse.service';
 import { AlunosDataverse } from './interfaces/DataverseAlunos';
 import { AvaliacaoDataverse } from './interfaces/DataverseAvaliacao';
 import { UpdateDto } from './dataverse.dto/update.dto';
+import { CreateAvaliacao } from './dataverse.dto/CreateAvaliacao.dto';
 
 @Controller('dataverse')
 export class DataverseController {
@@ -27,7 +28,8 @@ export class DataverseController {
   }
 
   @Post('avaliacao')
-  async createAvaliacao(@Body() body:any){
+  @UsePipes(new ValidationPipe())
+  async createAvaliacao(@Body() body: CreateAvaliacao){
       return await this.dataverseService.insertData(this.avaliacao, body)
   }
 
