@@ -5,11 +5,25 @@ import { HttpException } from '@nestjs/common';
 import { DataverseQueries } from '../interfaces/Dataverse.Queries.Interface';
 import { UpdateDto } from '../dataverse.dto/update.dto';
 import { type } from 'os';
+import { Logindto } from '../dataverse.dto/Login.dto';
+import { LoginDataverse } from '../interfaces/DataverseLogin';
 
 @Injectable()
 export class DataverseService {
     constructor(){}
+    async verifyLogin(logindto: Logindto, dataverseLogin: LoginDataverse) {
+        const https_config = await dataverseLogin.getData();
+        const res = await axios.get(https_config.url, https_config.header);
+        
+        const found_user = res.data.value.find((filt) => {
+          return filt.cr0bb_usuario === logindto.user && filt.cr0bb_senha === logindto.password;
+        });
+    
+        if (!found_user) throw new HttpException('Nenhum usuário encontrado', 404);
+        return found_user;
 
+    }
+    
     async getData(query: DataverseQueries, filter?: string){
        let https_config = await query.getData();
        
@@ -61,7 +75,8 @@ export class DataverseService {
          throw new HttpException(err, 500)
        }
       )
-      return res    }
+      return res    
+    }
 
       private convertObjectKeysToStrings(obj: Object) {
         console.log(obj)

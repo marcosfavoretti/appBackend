@@ -1,14 +1,17 @@
-import { Body, Controller, Get, Param, Post, Put, UsePipes, ValidationPipe} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Response, UsePipes, ValidationPipe} from '@nestjs/common';
 import { DataverseService } from './service/dataverse.service';
 import { AlunosDataverse } from './interfaces/DataverseAlunos';
 import { AvaliacaoDataverse } from './interfaces/DataverseAvaliacao';
 import { UpdateDto } from './dataverse.dto/update.dto';
 import { CreateAvaliacao } from './dataverse.dto/CreateAvaliacao.dto';
+import { Logindto } from './dataverse.dto/Login.dto';
+import { LoginDataverse } from './interfaces/DataverseLogin';
 
 @Controller('dataverse')
 export class DataverseController {
   alunos = new AlunosDataverse()
   avaliacao = new AvaliacaoDataverse()
+  login = new LoginDataverse()
 
   constructor(private readonly dataverseService: DataverseService) {}
   
@@ -38,5 +41,12 @@ export class DataverseController {
     async updateAvaliacao(@Body() body: UpdateDto){//criar dto para isso
     return this.dataverseService.updateData(this.avaliacao, body)
   }
+
+  @Post("login")
+  @UsePipes(new ValidationPipe())
+   async verifyUser(@Body() logindto : Logindto, @Response() res){
+      let response = await this.dataverseService.verifyLogin(logindto, this.login)
+      res.json(response)
+    }
 
 }
