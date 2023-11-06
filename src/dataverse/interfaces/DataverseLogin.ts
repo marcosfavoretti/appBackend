@@ -11,7 +11,7 @@ export class LoginDataverse extends DataverseBaseClass implements DataverseQueri
         return new RequestConfig(this.url, http_header)
     }
     async insertData(data: any) {
-        return null //retirar isso aki apos
+        //retirar isso aki apos
         let http_header = await this.getHeader()
         return new RequestConfig(this.url, http_header, data)
     }

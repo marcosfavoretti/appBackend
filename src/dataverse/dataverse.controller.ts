@@ -6,6 +6,7 @@ import { UpdateDto } from './dataverse.dto/update.dto';
 import { CreateAvaliacao } from './dataverse.dto/CreateAvaliacao.dto';
 import { Logindto } from './dataverse.dto/Login.dto';
 import { LoginDataverse } from './interfaces/DataverseLogin';
+import { CadastroDto } from './dataverse.dto/insertLogin.dto';
 
 @Controller('dataverse')
 export class DataverseController {
@@ -48,5 +49,13 @@ export class DataverseController {
       let response = await this.dataverseService.verifyLogin(logindto, this.login)
       res.json(response)
     }
+
+    @Post("login/cadastro")
+    @UsePipes(new ValidationPipe())
+     async cadastro(@Body() logindto : CadastroDto, @Response() res){
+        await this.dataverseService.verifyAvaiable(logindto, this.login)
+        let response = await this.dataverseService.insertData(this.login, logindto)
+        res.json(response)
+      }
 
 }

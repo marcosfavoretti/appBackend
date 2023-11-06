@@ -7,15 +7,16 @@ import { UpdateDto } from '../dataverse.dto/update.dto';
 import { type } from 'os';
 import { Logindto } from '../dataverse.dto/Login.dto';
 import { LoginDataverse } from '../interfaces/DataverseLogin';
+import { CadastroDto } from '../dataverse.dto/insertLogin.dto';
 
 @Injectable()
 export class DataverseService {
     constructor(){}
     async verifyLogin(logindto: Logindto, dataverseLogin: LoginDataverse) {
-        const https_config = await dataverseLogin.getData();
-        const res = await axios.get(https_config.url, https_config.header);
-        
-        const found_user = res.data.value.find((filt) => {
+        //const https_config = await dataverseLogin.getData();
+        //const res = await axios.get(https_config.url, https_config.header);
+        const res = await this.getData(dataverseLogin)
+        const found_user = res.value.find((filt) => {
           return filt.cr0bb_usuario === logindto.user && filt.cr0bb_senha === logindto.password;
         });
     
@@ -23,7 +24,17 @@ export class DataverseService {
         return found_user;
 
     }
-    
+    async verifyAvaiable(new_login: CadastroDto, dataverseLogin: LoginDataverse){
+      const {value} = await this.getData(dataverseLogin)
+      console.log(value)
+      const filter = value.find((filt)=>{
+        if(filt.cr0bb_usuario === new_login.cr0bb_usuario && new_login.cr0bb_senha === filt.cr0bb_senha){
+          return filt
+        }
+      })      
+      if(filter) throw new HttpException('Usuario ja em uso', 500)
+      return
+    }
     async getData(query: DataverseQueries, filter?: string){
        let https_config = await query.getData();
        
