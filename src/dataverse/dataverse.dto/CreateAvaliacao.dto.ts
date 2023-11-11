@@ -24,4 +24,8 @@ export class CreateAvaliacao{
 
     @IsString()
     cr0bb_idaluno
+
+    @IsOptional()
+    @IsString()
+    cr0bb_avaliador
 }
