@@ -9,7 +9,6 @@ export class HtmlTamplate{
     }
 
     htmlGenerateCertificado(){
-        console.log(`${decodeURIComponent(String(this.alunoinfo.inicio))} á ${decodeURIComponent(String(this.alunoinfo.fim)) }`)
         return `<!DOCTYPE html>
         <html lang="en">
         

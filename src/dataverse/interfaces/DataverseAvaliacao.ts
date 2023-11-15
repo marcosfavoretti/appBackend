@@ -18,7 +18,6 @@ export class AvaliacaoDataverse extends DataverseBaseClass implements DataverseQ
     async updateData(data: string, id: string, field: string): Promise<RequestConfig> {
        //trato o valor de data para ser aceito na req
         let http_header = await this.getHeader()
-        console.log(data, http_header)
         return new RequestConfig(`${this.url}(${id})/${field}`, http_header, data)
     }
 }

@@ -26,7 +26,6 @@ export class DataverseService {
     }
     async verifyAvaiable(new_login: CadastroDto, dataverseLogin: LoginDataverse){
       const {value} = await this.getData(dataverseLogin)
-      console.log(value)
       const filter = value.find((filt)=>{
         if(filt.cr0bb_usuario === new_login.cr0bb_usuario && new_login.cr0bb_senha === filt.cr0bb_senha){
           return filt
@@ -43,7 +42,6 @@ export class DataverseService {
           if (filter === undefined) return res.data;
           else {
             let filteredArray = res.data.value.filter((filt) => filt.cr0bb_idaluno === filter);
-            console.log(filteredArray, typeof filteredArray);
             return filteredArray;
           }
         }
@@ -75,7 +73,6 @@ export class DataverseService {
 
     async updateData(query: DataverseQueries, body: UpdateDto){
       let https_config = await query.updateData(body.data, body.id, body.field);
-      console.log(https_config.url)
       let res = axios.put((https_config.url) , {value: https_config.data}, https_config.header).then(
        (res)=>{
          return res.data
@@ -90,25 +87,11 @@ export class DataverseService {
     }
 
       private convertObjectKeysToStrings(obj: Object) {
-        console.log(obj)
         const entries = Object.entries(obj);
         for (let [key, value] of entries) {
           obj[key] = String(value)//passo tudo para string
         }
-        console.log(obj)
         return obj
       }
-    /*
-    {
-      "cr0bb_presenca": "false",
-      "cr0bb_datapresenca": "20/01/2023",
-      "cr0bb_participacao": "0",
-      "cr0bb_relacionamentointerpessoal": "0",
-      "cr0bb_cumprimentodemetas": "0",
-      "cr0bb_habilidadestecnicas": "0",
-      "cr0bb_idaluno":"1"
-      }
-    */
-
 
 }

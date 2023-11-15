@@ -2,7 +2,6 @@ import { PublicClientApplication } from "@azure/msal-node";
 import {dataverseAmbiente} from "./AmbienteDateverse.variaveis";
 import { DataverseUser } from "./Dataverse.User";
 
-const { exec } = require('child_process');
 
 export class MicrosoftToken{
 
@@ -29,10 +28,8 @@ export class MicrosoftToken{
           password: DataverseUser.password,
           scopes: dataverseAmbiente.scopes,
         }).then((response) => {
-          console.log(response.accessToken)
             return response.accessToken
         }).catch((error) => {
-          console.error('Erro ao adquirir o token:', error);
           throw new Error('Não foi possivel gerar o token')
         });
         if(!token){
